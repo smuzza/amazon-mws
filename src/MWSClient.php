@@ -1292,4 +1292,27 @@ class MWSClient{
     public function setClient(Client $client) {
         $this->client = $client;
     }
+
+    public function GetShipment($shipmentId = [])
+    {
+        $query = [
+            'MarketplaceId' => $this->config['Marketplace_Id']
+        ];
+
+        $query += [
+            'ShipmentId' => $shipmentId
+        ];
+
+        $response = $this->request(
+            'GetShipment',
+            $query
+        );
+
+        $result = [];
+        if (isset($response['GetShipmentResult']['Shipment'])) {
+            return $response['GetShipmentResult']['Shipment'];
+        }
+
+        return $result;
+    }
 }
